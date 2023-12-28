@@ -1,0 +1,55 @@
+<template>
+    <div class="chart" lwc:dom="manual" style="position: relative;" lwc:ref="chartRef"></div>
+    <!-- <div class="_legend" style="
+    display: flex;
+    flex-flow: column-reverse;
+    position: absolute;
+    top: 67px;
+    right: 35px;
+">
+        <div>
+            <div class="legendValue" style="
+    display: flex;
+    flex-flow: column;
+    padding-left: 16px;
+"><span class="symbol-Mileage" style="
+    border-radius: 20px;
+    height: 0px;
+    width: 20px;
+    border: 2px solid rgba(0, 128, 0, 0.7);
+"></span><span class="label" style="
+    color: #1D1D1D;
+    font-weight: 400;
+    line-height: 22.42px;
+    font-size: 12px;
+    padding-bottom: 9px;
+    font-family: 'Proxima Nova' !important;
+">Average</span></div>
+            <div class="legendValue" style="
+    display: flex;
+    flex-flow: column;
+    padding-left: 16px;
+"><span class="symbol-Monthly" style="
+    border-radius: 20px;
+    /* height: 0px; */
+    width: 20px;
+    /* border: 2px solid rgba(0, 128, 0, 0.7); */
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(217,217,217,1);
+"></span><span class="label" style="
+    color: #1D1D1D;
+    font-weight: 400;
+    line-height: 22.42px;
+    font-size: 12px;
+    padding-bottom: 9px;
+    font-family: 'Proxima Nova' !important;
+">Monthly</span></div>
+        </div>
+        <div class="clear"></div>
+    </div> -->
+    <template lwc:if={error}>
+        {error}
+    </template>
+</template>

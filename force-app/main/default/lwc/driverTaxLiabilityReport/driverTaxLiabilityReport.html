@@ -1,0 +1,101 @@
+<template>
+    <!-- <lightning-card> -->
+        <div class="report_header">
+            <!--for Title of report-->
+            <div class="report_title">Driver Tax Liability Report</div>
+             <!--for Driver-->
+             <c-select2-dropdown class="dropdown_style"
+                    title={Driverplaceholder}
+                     options={TypeOptions}
+                     value={value}
+                     onchange={handleDriver}
+                     main-class="default-box-input slds-truncate">
+             </c-select2-dropdown>
+            <!-- <c-combobox-with-search type-options={TypeOptions} listvalue={Driver} placeholdervalue={Driverplaceholder} onmycustomevent={handleDriver}></c-combobox-with-search> -->
+            
+            <!--for Year-->
+            <c-select2-dropdown class="dropdown_style"
+                    title={Yearplaceholder}
+                    options={yesrlist}
+                    value={value}
+                    onchange={handleYear}
+                    main-class="default-box-input slds-truncate">
+            </c-select2-dropdown>
+            <!-- <c-combobox-with-search type-options={Year} listvalue={yesrlist} placeholdervalue={Yearplaceholder} onmycustomevent={handleYear}></c-combobox-with-search> -->
+            
+            <!--for visible Apply button when both drowpdown value are fill-->
+            <template if:true={isDriver} >
+                <template if:true={isYear} >
+                    <button type="button"
+                    class="slds-button slds-button_outline-brand btn-trip-01 bc-green apply_button" onclick={HandleApply}>
+                    Apply</button>
+                    <!-- <lightning-button   label="Apply"  onclick={HandleApply} class="apply_button" ></lightning-button> -->
+                </template>
+            </template>   
+        </div>
+
+         <!-- for show detail of Tax Liability detail when click on apply button -->
+        <template if:true={AnualTaxLiability} >
+            <!-- For Quarter wise detail -->
+            <div class="tax_detail slds-grid slds-wrap">
+                <template for:each={QuarterWiseDetail} for:item="taxdetail">
+                    <tr key={taxdetail.quarterno} class="split_data  slds-box">
+                        <td class="tax_detail_header"> {taxdetail.quarterno}{taxdetail.msg} Quarter Tax Analysis</td>
+                        <td class="mil_title">Mileage: <span class="mileage_amount">{taxdetail.Mileages} </span></td>
+                        <td class="reim_title">Total Reimbursement: <span class="reimburse_amount">${taxdetail.Reimbursements} </span></td>
+                        <td class="irs_title">Max IRS Amount: <span class="max_irs_amount">${taxdetail.MaxIRSrate} </span></td>
+                        <td class="liability_title"><div class="quarte_div">Q{taxdetail.quarterno} Tax Liability:</div> <div class="tax_liability_amount">${taxdetail.Reimbursements} </div></td>
+                    </tr>
+                </template>
+            </div>
+            <!-- For Annual Tax Analysis detail -->
+            <div class="detail_summary">
+                    <div class=" tax_analysis slds-box">
+                        <p class="header_of_anualtax">Anual Tax Analysis</p>
+                        
+                        <h1 class="border-totalraim">Total Reimbursement: <span class="total_rem">{totalrem} </span></h1>
+                        <h1 class="border-max-allow">Maximum Alowable: <span class="max_alowable">${maxallounce} </span></h1>
+                        <h1 >Anual Tax Liability: <span class="tax_liability_total">${taxliablity} </span></h1>
+                    </div>
+                    <div class=" liability_detail slds-box">
+                        <p class="header_of_detail">Anual Tax Liability Detail</p>
+                        <button  data-id="detail" onclick={handleDetail}
+                        class="slds-btn slds-btn-primary slds-btn-sm waves-effect bc-green waves-light mleft-0 btn-trip detail_button"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
+                            fill="none" style="margin-right: 3px;">
+                            <path
+                                d="m6.654 10.232 0.028 -0.028 -0.028 0.028 3.76 3.76a0.824 0.824 0 0 0 0.126 0.104 0.55 0.55 0 0 0 0.06 0.032h0.001l0.028 0.016 0.008 0.005 0.042 0.022a0.314 0.314 0 0 0 0.078 0.025l0.006 0.002a0.49 0.49 0 0 0 0.072 0.022l0.002 0.001a0.828 0.828 0 0 0 0.324 0h0.002a0.442 0.442 0 0 0 0.046 -0.016 0.459 0.459 0 0 1 0.024 -0.006l0.002 -0.002 0.028 -0.008 0.05 -0.016a0.464 0.464 0 0 0 0.086 -0.044l0.001 -0.001 0.002 -0.001a0.204 0.204 0 0 1 0.024 -0.014l0.032 -0.019a0.838 0.838 0 0 0 0.126 -0.104l3.76 -3.76a0.828 0.828 0 0 0 0 -1.172 0.828 0.828 0 0 0 -1.172 0l-2.348 2.348V4.262a0.83 0.83 0 0 0 -1.656 0v7.147l-2.343 -2.348a0.828 0.828 0 0 0 -1.171 0 0.828 0.828 0 0 0 0 1.172Zm11.724 6.792a0.829 0.829 0 0 0 -0.83 -0.828H4.45a0.83 0.83 0 0 0 0 1.655h13.1a0.83 0.83 0 0 0 0.829 -0.829Z"
+                                fill="white" stroke="white" stroke-width="0.08871573333333335" />
+                        </svg>Download
+                        <!-- <i class="fa-solid fa-download"></i>Download -->
+                    </button>
+                        <!-- <lightning-button   label="Download"  icon-position="left" icon-name="utility:download" data-id="detail" onclick={handleDetail} class="detail_button" ></lightning-button> -->
+                    </div>
+                    <div class=" liability_summary slds-box">
+                        <p class="header_of_summary">Anual Tax Liability Summary</p>
+                        <button data-id="summary" onclick={handleSummary}
+                        class="slds-btn slds-btn-primary slds-btn-sm waves-effect bc-green waves-light mleft-0 btn-trip detail_button"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
+                            fill="none" style="margin-right: 3px;">
+                            <path
+                                d="m6.654 10.232 0.028 -0.028 -0.028 0.028 3.76 3.76a0.824 0.824 0 0 0 0.126 0.104 0.55 0.55 0 0 0 0.06 0.032h0.001l0.028 0.016 0.008 0.005 0.042 0.022a0.314 0.314 0 0 0 0.078 0.025l0.006 0.002a0.49 0.49 0 0 0 0.072 0.022l0.002 0.001a0.828 0.828 0 0 0 0.324 0h0.002a0.442 0.442 0 0 0 0.046 -0.016 0.459 0.459 0 0 1 0.024 -0.006l0.002 -0.002 0.028 -0.008 0.05 -0.016a0.464 0.464 0 0 0 0.086 -0.044l0.001 -0.001 0.002 -0.001a0.204 0.204 0 0 1 0.024 -0.014l0.032 -0.019a0.838 0.838 0 0 0 0.126 -0.104l3.76 -3.76a0.828 0.828 0 0 0 0 -1.172 0.828 0.828 0 0 0 -1.172 0l-2.348 2.348V4.262a0.83 0.83 0 0 0 -1.656 0v7.147l-2.343 -2.348a0.828 0.828 0 0 0 -1.171 0 0.828 0.828 0 0 0 0 1.172Zm11.724 6.792a0.829 0.829 0 0 0 -0.83 -0.828H4.45a0.83 0.83 0 0 0 0 1.655h13.1a0.83 0.83 0 0 0 0.829 -0.829Z"
+                                fill="white" stroke="white" stroke-width="0.08871573333333335" />
+                        </svg>Download
+                        <!-- <i class="fa-solid fa-download"></i>Download -->
+                    </button>
+                        <!-- <lightning-button   label="Download"  icon-position="left" icon-name="utility:download" data-id="summary" onclick ={handleSummary} class="summary_button" ></lightning-button> -->
+                    </div>
+                    <!-- For Download file in xlsx format -->
+                    <c-download-C-S-V-File></c-download-C-S-V-File>
+                </div>
+            
+        </template>  
+         <!-- For Data not found on click of Apply Button -->
+        <template if:false={AnualTaxLiability}>
+            <p class="error_msg">{errormsg}</p>
+        </template>
+    <!-- </lightning-card> -->
+    <div>
+        <lightning-icon class=" back_button " icon-name="utility:back" size="xx-small" onclick={handleClick} ></lightning-icon>
+    </div> 
+</template>

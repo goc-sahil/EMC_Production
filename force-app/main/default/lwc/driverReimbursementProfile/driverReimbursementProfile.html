@@ -1,0 +1,475 @@
+<template>
+    <div class="animate__animated animate__slideInLeft animate__faster">
+        <lightning-layout-item size="12">
+            <lightning-layout>
+                <lightning-layout-item class="slds-p-horizontal_medium slds-size_12-of-12">
+                    <div class="middle-block slds-p-around_small slds-col slds-size_12-of-12">
+                        <div class="grid-block">
+                            <div class="vehicle-info">
+                                <div class="vehicle_1">
+                                    <div class="slds-p-horizontal_x-small slds-p-vertical_small vehicle_1-1">
+										<span data-customtooltip="Vehicle used to generate your reimbursement rates">
+                                            <svg class="vehicle-info-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 30 30" fill="none">
+                                                <circle cx="12" cy="12" r="10.9333" transform="matrix(1 0 0 -1 3 27)" stroke="#4DBFFF" stroke-width="2.13333"/>
+                                                <path d="M15.995 11.8347C15.7283 12.112 15.3976 12.2507 15.003 12.2507C14.6083 12.2507 14.2723 12.112 13.995 11.8347C13.7283 11.5573 13.595 11.2213 13.595 10.8267C13.595 10.432 13.7283 10.1013 13.995 9.83467C14.2723 9.55734 14.6083 9.41867 15.003 9.41867C15.3976 9.41867 15.7283 9.55734 15.995 9.83467C16.2723 10.1013 16.411 10.432 16.411 10.8267C16.411 11.2213 16.2723 11.5573 15.995 11.8347ZM16.235 20.6667H13.771V12.9387H16.235V20.6667Z" fill="#4DBFFF"/>
+                                            </svg>
+                                        </span>
+                                        <div
+                                            class="slds-col slds-size_12-of-12 slds-p-left_xx-small slds-p-right_small slds-p-bottom_large">
+                                            <div class="vehicle_font">Reimbursement Vehicle:</div>
+                                            <div class="slds-p-top_x-small vehicle_font_1" style="
+                                            font-weight: 400;
+                                            font-size: 14px;
+                                            line-height: 14px;color: #6C6C6C;">{vehicleType}</div>
+                                        </div>
+                                        <!--slds-col slds-size_12-of-12 -->
+                                        <div class="slds-col slds-size_12-of-12 slds-p-right_small slds-p-left_xx-small">
+                                            <div class="vehicle_font">Home:</div>
+                                            <div class="slds-p-top_x-small vehicle_font_1">{address}</div>
+                                        </div>
+                                    </div>
+                                    <div id="spacer" class="spacer_1"></div>
+                                    <div class="">
+                                        <div class="carProfile">
+                                            <img style="height: inherit !important;" src={vehicleImage} />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="map-state">
+                                <div class="map-state_1">
+                                    <div class="map-state-font">Driving States</div>
+                                    <div class="map-state-font_1">{states}</div>
+                                </div>
+                                <div class="choropleth map-config">
+                                    <c-choropleth-map contact-id={contactId} width="160" height="127"
+                                        background="#F7F7F7" border-color="#F7F7F7" type={typeMap} canada={canadaStatesList}></c-choropleth-map>
+                                </div>
+                                <div class="view-map slds-p-around_xx-small" lwc:if={multipleMap}>
+                                    <div>
+                                        <div class="slds-form-element">
+                                          <label class="slds-checkbox_toggle slds-grid_vertical">
+                                            <input type="checkbox" name="checkbox-toggle-16" value="checkbox-toggle-16" aria-describedby="checkbox-toggle-16" onchange={handleMap} checked={checkAll}/>
+                                            <span id="checkbox-toggle-16" class="slds-checkbox_faux_container" aria-live="assertive">
+                                              <span class="slds-checkbox_faux toogle-input"></span>
+                                              <span class="slds-checkbox_on"></span>
+                                              <span class="slds-checkbox_off"></span>
+                                            </span>
+                                            <!-- <span class="slds-form-element__label slds-m-bottom_none input-label"><span class="map-label map--us">USA</span> <span class="map-label map--canada">/ Canada</span></span> -->
+                                          </label>
+                                        </div>
+                                      </div>
+                                </div>
+                            </div>
+                            <!-- <div style="display: flex;">
+                                <div class="slds-p-left_large slds-p-vertical_medium" style="flex: 26%;">
+                                    <div class="icon-holder" style="float: left;">
+                                        <img class="middle-icon" src={milesIcon} />
+                                    </div>
+                                    <div class="slds-p-vertical_small slds-p-left_small" style="float: left;">
+                                        <div
+                                            style="font-weight: 700; font-size: 26px; line-height: 26px; color: rgb(29, 29, 29);">
+                                            3,034 <i class="fa-solid fa-arrow-right-from-bracket"
+                                                style="font-size: 16px; line-height: 20px; cursor:pointer" onclick={getLastMonthMileage}></i>
+                                        </div>
+                                        <div class="slds-p-top_x-small"
+                                            style="font-family: Proxima Nova;font-style: normal;font-weight: 400;font-size: 14px;line-height: 18px;color: rgb(108, 108, 108);">
+                                            Miles last month</div>
+                                    </div>
+                                    <div class="slds-m-vertical_x-small slds-p-right_small slds-p-left_small" style="float: left;">
+                                        <div style="height: 58px; border: 1px solid rgb(122, 187, 74);"></div>
+                                    </div>
+                                    <div class="slds-p-vertical_small" style="float: left;">
+                                        <div
+                                            style="font-weight: 700;font-size: 26px;line-height: 26px;color: rgb(29, 29, 29);">
+                                            2,078 <i class="fa-solid fa-arrow-right-from-bracket"
+                                                style="font-size: 16px; line-height: 20px;cursor:pointer" onclick={getThisMonthMileage}></i></div>
+                                        <div class="slds-p-top_x-small"
+                                            style="font-family: Proxima Nova;font-style: normal;font-weight: 400;font-size: 14px;line-height: 18px;color: rgb(108, 108, 108);">
+                                            Miles this month </div>
+                                    </div>
+                            </div>
+                            <div class="slds-p-vertical_medium"  style="flex: 14%;">
+                                    <div class=" icon-holder" style="float: left;">
+                                        <img class="middle-icon" src={moneyIcon} />
+                                    </div>
+                                    <div class="slds-p-vertical_small slds-p-left_small" style="float: left;">
+                                        <div
+                                            style="font-weight: 700; font-size: 26px; line-height: 26px; color: rgb(29, 29, 29);">
+                                            $343.39
+                                        </div>
+                                        <div class="slds-p-top_x-small"
+                                            style="font-family: Proxima Nova; font-style: normal; font-weight: 400; font-size: 14px; line-height: 17px; color: rgb(108, 108, 108);">
+                                            /biweek </div>
+                                    </div>
+                                    <div class="slds-p-vertical_medium slds-p-left_x-small" style="float: left;"><i
+                                            class="fa-solid fa-arrow-right-from-bracket"
+                                            style="font-size: 16px; line-height: 20px;cursor:pointer" onclick={getBiweekReimbursement}></i></div>
+                            </div>
+                            <div class="slds-p-vertical_medium"  style="flex: 12%;">
+                                    <div class="icon-holder" style="float: left;">
+                                        <img class="middle-icon" src={variableRateIcon}>
+                                    </div>
+                                    <div class="slds-p-vertical_small slds-p-left_small" style="float: left;">
+                                        <div
+                                            style="font-weight: 700; font-size: 26px; line-height: 26px; color: rgb(29, 29, 29);">
+                                            $.3343
+                                        </div>
+                                        <div class="slds-p-top_x-small"
+                                            style="font-family: Proxima Nova; font-style: normal; font-weight: 400; font-size: 14px; line-height: 17px; color: rgb(108, 108, 108);">
+                                            /mile</div>
+                                    </div>
+                                    <div class="slds-p-vertical_medium slds-p-left_x-small" style="float: left;"><i
+                                            class="fa-solid fa-arrow-right-from-bracket"
+                                            style="font-size: 16px; line-height: 20px;cursor:pointer" onclick={getGasPrice}></i></div>
+                            </div>
+                            <div class="slds-p-vertical_medium"  style="flex: 10%;">
+                                    <div class="icon-holder" style="float: left;">
+                                        <img class="middle-icon" src={fuelIcon} />
+                                    </div>
+                                    <div class="slds-p-vertical_small slds-p-left_small" style="float: left;">
+                                        <div
+                                            style="font-weight: 700; font-size: 26px; line-height: 26px; color: rgb(29, 29, 29);">
+                                            $5.76
+                                        </div>
+                                        <div class="slds-p-top_x-small"
+                                            style="font-family: Proxima Nova; font-style: normal; font-weight: 400; font-size: 14px; line-height: 17px; color: rgb(108, 108, 108);">
+                                            /gallon</div>
+                                    </div>
+                                    <div class="slds-p-vertical_medium slds-p-left_x-small" style="float: left;"><i
+                                            class="fa-solid fa-arrow-right-from-bracket"
+                                            style="font-size: 16px; line-height: 20px;cursor:pointer" onclick={getGasPrice}></i>
+                                    </div>
+                            </div>
+                            </div> -->
+
+
+                            <div  class="slds-p-left_small miles-view">
+                                <div  class="slds-grid slds-grid--pull-padded">
+                                    <div  class="slds-col--padded">
+                                        <div class="slds-box--xx-small slds-text-align--center" style="display: flex;width: 100%;">
+                                            <div  style="width: 90%;">
+                                                <div class="slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--6-of-12" style="float: left;">
+                                                    <div  class="slds-text-align--center slds-p-right_medium" style="float: left;">
+                                                        <!-- <img class="middle-icon"
+                                                        src={milesIcon}  style="max-width: 36px;float: left;" /> -->
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none"><path d="M32.188 4.2c3.063 0 5.612 2.254 5.612 5.248 0 .73-.173 1.68-.438 2.347-1.501 3.024-3.017 6.056-4.528 9.082a.722.722 0 0 1-.635.38h-9.1c-1.757 0-3.15 1.305-3.15 2.951 0 1.648 1.393 2.953 3.15 2.953h4.55c2.896 0 5.25 2.205 5.25 4.919 0 2.716-2.354 4.921-5.25 4.921H10.5a.721.721 0 0 1-.635-.38c-1.704-3.407-3.486-6.79-5.173-10.199a7.508 7.508 0 0 1-.492-2.543c0-3.332 2.853-5.904 6.311-5.904s6.289 2.576 6.289 5.904c0 .811-.207 1.827-.491 2.543-1.559 3.087-3.136 6.177-4.704 9.266H27.65c2.147 0 3.85-1.599 3.85-3.609s-1.704-3.607-3.85-3.607H23.1c-2.507 0-4.55-1.913-4.55-4.265 0-2.35 2.042-4.263 4.55-4.263h7.996c-1.349-2.719-2.735-5.426-4.06-8.148a7.114 7.114 0 0 1-.436-2.349c0-2.993 2.525-5.247 5.589-5.247Zm0 1.312C29.839 5.512 28 7.132 28 9.447c0 .486.191 1.475.35 1.887 1.276 2.57 2.567 5.138 3.85 7.707 1.255-2.58 2.552-5.077 3.85-7.707.16-.41.35-1.4.35-1.887 0-2.315-1.862-3.934-4.211-3.934Zm.012 1.639c1.344 0 2.45 1.036 2.45 2.296 0 1.26-1.106 2.296-2.45 2.296s-2.45-1.036-2.45-2.296c0-1.26 1.106-2.296 2.45-2.296Zm0 1.313c-.588 0-1.05.433-1.05.982 0 .551.462.984 1.05.984s1.05-.433 1.05-.984c0-.551-.462-.982-1.05-.982ZM10.511 19.288c-2.73 0-4.911 1.95-4.911 4.592 0 .56.21 1.578.404 2.071C7.495 28.905 9 31.857 10.5 34.808c1.47-2.966 3.038-5.953 4.496-8.857.196-.494.406-1.512.406-2.072 0-2.641-2.161-4.591-4.89-4.591Zm-.011 1.641c1.732 0 3.15 1.33 3.15 2.951 0 1.624-1.418 2.953-3.15 2.953s-3.15-1.33-3.15-2.953 1.418-2.95 3.15-2.95Zm0 1.312c-.974 0-1.75.725-1.75 1.64s.775 1.641 1.75 1.641 1.75-.728 1.75-1.641-.775-1.64-1.75-1.64Z" fill="#1D1D1D"/></svg>
+                                                    </div>
+                                                    <div style="display: flex;flex-flow: column;">
+                                                        <div  class="slds-text-align--center content-text"
+                                                        style="font-family: 'Proxima Nova Bold' !important;font-size: 26px;line-height: 35px;color: rgb(29, 29, 29);"
+                                                        >
+                                                            <div style="float: left;font-family: 'Proxima Nova Bold' !important;
+                                                            font-size: 26px;
+                                                            line-height: 35px;
+                                                            color: rgb(29, 29, 29);">
+                                                                <template lwc:if={lastMilesZero}>
+                                                                    {lastMilesZero}
+                                                                </template>
+                                                                <template lwc:else>
+                                                                    <lightning-formatted-number style="font-family: 'Proxima Nova Bold' !important;" value={lastMonthMiles}></lightning-formatted-number>
+                                                                </template>
+                                                            </div>
+                                                            <!-- <i  class="fa-solid fa-arrow-right-from-bracket slds-p-left_x-small"
+                                                                style="font-size: 16px; line-height: 35px; cursor: pointer;float:left;z-index: 4;
+                                                                position: relative;" onclick={getLastMonthMileage}></i> -->
+                                                        </div>
+                                                        <div  style="font-family: Proxima Nova;font-style: normal;font-weight: 400;font-size: 14px;line-height: 18px;color: #00AFE8;text-align: start;" onclick={getLastMonthMileage}>Miles last month
+                                                         <!-- <svg xmlns="http://www.w3.org/2000/svg" width="7" height="10" class="arrow-svg"  viewBox="0 0 7 10" fill="none" >
+                                                            <path d="M1 1L6.00087 4.78742C6.14176 4.89412 6.14176 5.10588 6.00087 5.21258L1 9" stroke="#7ABB4A" stroke-width="1.77778" stroke-linecap="round"/>
+                                                        </svg> -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--6-of-12"
+                                                    style="float: left;">
+                                                    <div style="height: 45px;border: 0.11803px solid #d7d7d7;float: left;margin-top: 6px;margin-left: 6px"></div>
+                                                    <div style="display: flex;flex-flow: column;">
+                                                        <div class="slds-p-left_x-small content-text"
+                                                        style="font-family: 'Proxima Nova Bold' !important;font-size: 26px; line-height: 35px; color: rgb(29, 29, 29)"
+                                                       >
+                                                            <div style="float: left;font-family: 'Proxima Nova Bold' !important;
+                                                            font-size: 26px;
+                                                            line-height: 35px;
+                                                            color: rgb(29, 29, 29);"><template lwc:if={thisMilesZero}>
+                                                                {thisMilesZero}
+                                                            </template>
+                                                            <template lwc:else>
+                                                                <lightning-formatted-number style="font-family: 'Proxima Nova Bold' !important;" value={thisMonthMiles}></lightning-formatted-number>
+                                                            </template> </div>
+                                                            <!-- <i class="fa-solid slds-p-left_x-small fa-arrow-right-from-bracket"
+                                                            style="font-size: 16px; line-height: 35px; cursor: pointer;float:left" onclick={getThisMonthMileage}></i> -->
+                                                        </div>
+                                                        <div  style="font-family: Proxima Nova;font-style: normal;font-weight: 400;font-size: 14px;line-height: 18px;color: #00AFE8;text-align: start;
+                                                        padding-left: 8px;"  onclick={getThisMonthMileage}>Miles this month 
+                                                        <!-- <svg xmlns="http://www.w3.org/2000/svg" width="7" height="10" class="arrow-svg"  viewBox="0 0 7 10" fill="none" >
+                                                            <path d="M1 1L6.00087 4.78742C6.14176 4.89412 6.14176 5.10588 6.00087 5.21258L1 9" stroke="#7ABB4A" stroke-width="1.77778" stroke-linecap="round"/>
+                                                        </svg> -->
+                                                       </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div  style="width: 50%;">
+                                                <div class="slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--12-of-12">
+                                                    <div  class="slds-text-align--center slds-p-right_small" style="float: left;">
+                                                        <!-- <img class="middle-icon" src={moneyIcon}   style="max-width: 36px;"/> -->
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none"><path d="M5.116 11.489h30.878M32.905 8.4H8.204M3.57 14.576h33.965c0.427 0 0.772 0.346 0.772 0.772v16.982a0.772 0.772 0 0 1 -0.772 0.772H3.573a0.772 0.772 0 0 1 -0.772 -0.772V15.348c0 -0.427 0.346 -0.772 0.772 -0.772Zm30.878 12.351v-6.174c0 -0.427 -0.352 -0.759 -0.763 -0.874a2.021 2.021 0 0 1 -1.456 -1.452c-0.112 -0.41 -0.443 -0.763 -0.868 -0.763H9.746c-0.425 0 -0.756 0.352 -0.868 0.763 -0.215 0.77 -0.759 1.255 -1.456 1.452 -0.41 0.115 -0.763 0.446 -0.763 0.872v6.176c0 0.427 0.355 0.761 0.758 0.898a2.315 2.315 0 0 1 1.433 1.431c0.14 0.404 0.472 0.759 0.898 0.759h21.616c0.425 0 0.759 -0.355 0.896 -0.759a2.315 2.315 0 0 1 1.433 -1.431c0.404 -0.14 0.759 -0.472 0.759 -0.898Zm-10.808 -3.094a3.089 3.089 0 1 1 -6.174 0 3.089 3.089 0 0 1 6.174 0Z" stroke="#1D1D1D" stroke-width="1.543878" stroke-miterlimit="10" stroke-linecap="round"/></svg>
+                                                    </div>
+                                                    <template lwc:if={biweekly}>
+                                                        <div style="display: flex;flex-flow: column;">
+                                                            <div  class="slds-text-align--center content-text" style="font-family: 'Proxima Nova Bold' !important;font-size: 26px;line-height: 35px;color: rgb(29, 29, 29);">
+                                                                <div style="float: left;font-family: 'Proxima Nova Bold' !important;
+                                                                font-size: 26px;
+                                                                line-height: 35px;
+                                                                color: rgb(29, 29, 29);">
+                                                                <template lwc:if={halfFixedZero}>
+                                                                    {halfFixedZero}
+                                                                </template>
+                                                                <template lwc:else>
+                                                                    <lightning-formatted-number style="font-family: 'Proxima Nova Bold' !important;" value={halfFixedAmount} format-style="currency" currency-code="USD"></lightning-formatted-number>
+                                                                </template></div>
+                                                                 <!-- <i class="fa-solid fa-arrow-right-from-bracket slds-p-left_x-small"
+                                                                    style="font-size: 16px; line-height: 35px; cursor: pointer;float:left" onclick={getBiweekReimbursement}></i> -->
+                                                            </div>
+                                                            <div onclick={getBiweekReimbursement}  style="font-family: Proxima Nova;font-style: normal;font-weight: 400;font-size: 14px;line-height: 18px;color: #00AFE8;text-align: start;
+                                                            ">Biweek
+                                                             <!-- <svg xmlns="http://www.w3.org/2000/svg" width="7" height="10" class="arrow-svg"  viewBox="0 0 7 10" fill="none" >
+                                                                <path d="M1 1L6.00087 4.78742C6.14176 4.89412 6.14176 5.10588 6.00087 5.21258L1 9" stroke="#7ABB4A" stroke-width="1.77778" stroke-linecap="round"/>
+                                                            </svg> -->
+                                                            </div>
+                                                        </div>
+                                                    </template>
+                                                    <template lwc:else>
+                                                        <div style="display: flex;flex-flow: column;">
+                                                            <div  class="slds-text-align--center content-text" style="font-family: 'Proxima Nova Bold' !important;font-size: 26px;line-height: 35px;color: rgb(29, 29, 29);" >
+                                                                <div style="float: left;font-family: 'Proxima Nova Bold' !important;
+                                                                font-size: 26px;
+                                                                line-height: 35px;
+                                                                color: rgb(29, 29, 29);">
+                                                                    <template lwc:if={fixedAmountZero}>
+                                                                        {fixedAmountZero}
+                                                                    </template>
+                                                                    <template lwc:else>
+                                                                         <lightning-formatted-number style="font-family: 'Proxima Nova Bold' !important;" value={fixedAmount} format-style="currency" currency-code="USD"></lightning-formatted-number>
+                                                                    </template>
+                                                                </div> <!--<i class="fa-solid fa-arrow-right-from-bracket slds-p-left_x-small"
+                                                                    style="font-size: 16px; line-height: 35px; cursor: pointer;float:left" onclick={getMonthReimbursement}></i>-->
+                                                            </div>
+                                                            <div onclick={getMonthReimbursement}  style="font-family: Proxima Nova;font-style: normal;font-weight: 400;font-size: 14px;line-height: 18px;color: #00AFE8;text-align: start;
+                                                            ">Month 
+                                                            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="7" height="10" class="arrow-svg"  viewBox="0 0 7 10" fill="none" >
+                                                                <path d="M1 1L6.00087 4.78742C6.14176 4.89412 6.14176 5.10588 6.00087 5.21258L1 9" stroke="#7ABB4A" stroke-width="1.77778" stroke-linecap="round"/>
+                                                            </svg> -->
+                                                           </div>
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slds-box--small slds-text-align--center" style="display: flex;width: 100%;">
+                                            <div  style="width: 90%;">
+                                                <div class="slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--12-of-12">
+                                                    <div  class="slds-text-align--center slds-p-right_x-small" style="float: left;">
+                                                        <!-- <img  class="middle-icon"
+                                                            src={variableRateIcon} style="max-width: 36px;float: left;"> -->
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none"><path d="M10.476 21.653c1.412 0 2.559-1.079 2.599-2.42 1.508-.662 2.677-1.867 3.238-3.377.514-1.344 1-3.297 2.397-4.064.985 1.591 3.654 1.472 4.483-.196 1.016.493 1.649 1.46 2.1 2.423a6.095 6.095 0 0 0 3.444 2.915c.353 2.891 4.68 2.961 5.143.092.795-.196 3.486-1.883 2.354-2.738a.672.672 0 0 0-.903.172 3.709 3.709 0 0 1-1.604 1.285c-.801-2.021-3.93-2.066-4.795-.071-1.347-.502-2.276-1.649-2.838-2.901a5.479 5.479 0 0 0-2.607-2.436c-.249-3.28-5.257-3.064-5.185.218a5.357 5.357 0 0 0-2.441 2.809l-.775 2.074a4.704 4.704 0 0 1-2.324 2.557c-1.246-2.257-4.883-1.412-4.889 1.169 0 1.372 1.168 2.489 2.604 2.489Zm20.837-6.224c1.718.044 1.718 2.447 0 2.491-1.717-.042-1.717-2.447 0-2.491ZM20.894 9.205c1.718.044 1.718 2.447 0 2.491-1.717-.042-1.717-2.447 0-2.491Zm-10.419 8.716c1.718.042 1.718 2.447 0 2.489-1.717-.042-1.717-2.447 0-2.489Z" fill="#1D1D1D"/><path d="M2.8 7v27.514h36.011" stroke="#1D1D1D" stroke-width="1.31" stroke-linecap="round"/><path d="M7.573 23.377h5.689c.361 0 .655.294.655.655v10.481h-7v-10.48c0-.362.294-.655.655-.655Zm10.388-3.931h5.689c.361 0 .655.294.655.655v14.413h-7.001V20.101c0-.361.294-.655.655-.655Zm10.387 2.621h5.691c.361 0 .655.294.655.655v11.792h-7V22.722c0-.362.292-.655.654-.655Z" stroke="#1D1D1D" stroke-width="1.31"/></svg>
+                                                    </div>
+                                                    <div style="display: flex;flex-flow: column;">
+                                                        <div  class="slds-text-align--center content-text"
+                                                            style="font-family: 'Proxima Nova Bold' !important;font-size: 26px;line-height: 35px;color: rgb(29, 29, 29);" >
+                                                            <div style="float: left;font-family: 'Proxima Nova Bold' !important;
+                                                            font-size: 26px;
+                                                            line-height: 35px;
+                                                            color: rgb(29, 29, 29);">
+                                                                <template lwc:if={messageForNextBatch}>
+                                                                    <span style="font-family: 'Proxima Nova Bold' !important;font-size: 16px;
+                                                                     line-height: 35px;color: rgb(29, 29, 29);">{messageForNextBatch}</span>
+                                                                </template>
+                                                                <template lwc:else>
+                                                                    <template lwc:if={mileageRateZero}>
+                                                                        {mileageRateZero}
+                                                                    </template>
+                                                                    <template lwc:else>
+                                                                        <lightning-formatted-number style="font-family: 'Proxima Nova Bold' !important;" value={lastMonthMileageRate} format-style="currency" currency-code="USD"></lightning-formatted-number>
+                                                                    </template>
+                                                                </template>
+                                                            </div>
+                                                            <!-- <i
+                                                                class="fa-solid fa-arrow-right-from-bracket slds-p-left_x-small"
+                                                                style="font-size: 16px; line-height: 35px; cursor: pointer;float:left" onclick={getGasPrice}></i> -->
+                                                        </div>
+                                                        <div onclick={getGasPrice} style="font-family: Proxima Nova;font-style: normal;font-weight: 400;font-size: 14px;line-height: 18px;color: #00AFE8;text-align: start;">Mile 
+                                                            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="7" height="10" class="arrow-svg"  viewBox="0 0 7 10" fill="none"  >
+                                                            <path d="M1 1L6.00087 4.78742C6.14176 4.89412 6.14176 5.10588 6.00087 5.21258L1 9" stroke="#7ABB4A" stroke-width="1.77778" stroke-linecap="round"/>
+                                                            </svg> -->
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div  style="width: 50%;">
+                                                <div class="slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--12-of-12">
+                                                    <div  class="slds-text-align--center  slds-p-right_small" style="float: left;">
+                                                        <!-- <img  class="middle-icon"
+                                                            src={fuelIcon} style="max-width: 36px;float: left;"> -->
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none"><path d="M8.4 33.6V8.12a0.42 0.42 0 0 1 0.42 -0.42h15.96a0.42 0.42 0 0 1 0.42 0.42V33.6" stroke="#1D1D1D" stroke-width="1.5400000000000003" stroke-linecap="round"/><path d="M25.2 29.4c2.1 0.467 6.3 0.42 6.3 -3.5V9.8l4.2 -2.1" stroke="#1D1D1D" stroke-width="1.5400000000000003" stroke-linecap="round"/><path d="M6.3 34.3h21" stroke="#1D1D1D" stroke-width="1.5400000000000003" stroke-linecap="round"/><path x="8" y="8" width="8" height="4" rx="0.3" stroke="#1D1D1D" stroke-width="1.5400000000000003" stroke-linecap="round" d="M11.62 11.2h10.359a0.42 0.42 0 0 1 0.42 0.42v4.76a0.42 0.42 0 0 1 -0.42 0.42H11.62a0.42 0.42 0 0 1 -0.42 -0.42v-4.76a0.42 0.42 0 0 1 0.42 -0.42z"/><path d="M11.2 20.3h11.2" stroke="#1D1D1D" stroke-width="1.5400000000000003" stroke-linecap="round"/><path d="M31.5 12.6h2.38a0.42 0.42 0 0 1 0.42 0.42v4.06a0.42 0.42 0 0 1 -0.42 0.42H31.5" stroke="#1D1D1D" stroke-width="1.5400000000000003" stroke-linecap="round"/></svg>
+                                                    </div>
+                                                    <div style="display: flex;flex-flow: column;">
+                                                        <div  class="slds-text-align--center content-text"
+                                                        style="font-family: 'Proxima Nova Bold' !important;font-size: 26px;line-height: 35px;color: rgb(29, 29, 29);">
+                                                        <div style="float: left;font-family: 'Proxima Nova Bold' !important;
+                                                        font-size: 26px;
+                                                        line-height: 35px;
+                                                        color: rgb(29, 29, 29);">
+                                                        <template lwc:if={messageForNextBatch}>
+                                                            <span style="font-family: 'Proxima Nova Bold' !important;font-size: 16px;
+                                                             line-height: 35px;color: rgb(29, 29, 29);">{messageForNextBatch}</span>
+                                                        </template>
+                                                        <template lwc:else>
+                                                            <template lwc:if={fuelPriceZero}>
+                                                                {fuelPriceZero}
+                                                            </template>
+                                                            <template lwc:else>
+                                                                <lightning-formatted-number style="font-family: 'Proxima Nova Bold' !important;" value={monthfuelPrice} format-style="currency" currency-code="USD"></lightning-formatted-number>
+                                                            </template>
+                                                        </template>
+                                                        </div>
+                                                        <!-- <i
+                                                            class="fa-solid fa-arrow-right-from-bracket slds-p-left_x-small"
+                                                            style="font-size: 16px; line-height: 35px; cursor: pointer;float:left" onclick={getGasPrice}></i> -->
+                                                        </div>
+                                                        <div onclick={getGasPrice} style="font-family: Proxima Nova;font-style: normal;font-weight: 400;font-size: 14px;line-height: 18px;color: #00AFE8;text-align: start;">Gallon 
+                                                            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="7" height="10" class="arrow-svg"  viewBox="0 0 7 10" fill="none"  onclick={getGasPrice}>
+                                                            <path d="M1 1L6.00087 4.78742C6.14176 4.89412 6.14176 5.10588 6.00087 5.21258L1 9" stroke="#7ABB4A" stroke-width="1.77778" stroke-linecap="round"/>
+                                                            </svg> -->
+                                                       </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+        </lightning-layout-item>
+        <lightning-layout-item size="12">
+            <lightning-layout>
+                <lightning-layout-item class="slds-p-horizontal_medium slds-p-vertical_large slds-size_12-of-12">
+                    <div class="flex-row">
+                        <div class="slds-m-right_small"><button
+                                class="slds-btn slds-btn-primary slds-btn-sm waves-effect bc-white waves-light mleft-0 my-trip btn-toggle is-active"
+                                onclick={handleMyTrip}>
+                                My trips</button></div>
+                        <div class="slds-m-right_small"><button
+                                class="slds-btn slds-btn-primary slds-btn-sm waves-effect bc-white waves-light mleft-0 my-plan btn-toggle"
+                                onclick={handlePlanInfo}>
+                                Plan info</button></div>
+                        <template lwc:if={myTA}>
+                            <div class=""><button
+                                    class="slds-btn slds-btn-primary slds-btn-sm waves-effect bc-white waves-light mleft-0 my-ta btn-toggle"
+                                    onclick={handleTimeAttendance}>
+                                    T &amp; A</button></div>
+                        </template>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+        </lightning-layout-item>
+    </div>
+    <div>
+        <div class="slds-p-horizontal_medium animate__animated animate__slideInLeft animate__faster">
+            <template lwc:if={myTrip}>
+                <template lwc:if={lengthOfContact}>
+                    <c-accordion-view accordion-data={accordionList} is-tand-a={timeAttendance} contact-id={contactId} is-download-all={hrBorder} hr-class={hrBorder} show-arrow-icon={isIcon}
+                        account-id={accountId} contact-info={contact} onnavigate={fromAccordion} ontoast={onToast} onshow={getSpinner}>
+                    </c-accordion-view>
+                </template>
+            </template>
+        </div>
+        <div class="slds-p-horizontal_medium animate__animated animate__slideInLeft animate__faster">
+            <template lwc:if={timeAttendance}>
+                <template lwc:if={lengthOfContact}>
+                    <c-accordion-view accordion-data={accordionList} is-tand-a={timeAttendance} contact-id={contactId} is-download-all={hrBorder}  hr-class={hrBorder} show-arrow-icon={isIcon}
+                        account-id={accountId} contact-info={contact} onnavigate={fromAccordion} ontoast={onToast}  onshow={getSpinner}>
+                    </c-accordion-view>
+                </template>
+            </template>
+        </div>
+        <div class="slds-p-horizontal_medium animate__animated animate__slideInLeft animate__faster">
+            <template lwc:if={myPlanInfo}>
+                <c-user-plan-info contact-id={contactId} insurance-attachment-id={attachmentInsurance}
+                    insurance-rate={insuranceRate} maintenance={maintenance} license={license} taxes={taxes}
+                    depreciation={depreciation} monthly-cost={totalCost} business-use={businessUse}
+                    total-monthly-amount={totalMonthlyAmount} fixedcostadjustment={fixedCostAdjustment}
+                    total-monthly-fixed-cost={totalMonthlyFixedCost} variablefuelprice={variablefuelprice} tires={tires}
+                    miles={miles} business-percent={percent} packet-status1={packetStatus1} packet-status2={packetStatus2}
+                    packet-status3={packetStatus3} packet-status4={packetStatus4} meeting-status1={meetingStatus1}
+                    meeting-status2={meetingStatus2} meeting-status3={meetingStatus3}></c-user-plan-info>
+            </template>
+        </div>
+        <div class="slds-m-top_medium slds-m-left_medium">
+            <button class="slds-btn waves-effect btn-grey slds-back-btn slds-btn-sm" onclick={revertHandler}><i
+                    class="fas fa-arrow-left"></i></button>
+        </div>
+        <template lwc:if={myPlanInfo}>
+        </template>
+        <template lwc:else>
+            <div lwc:if={isArchive} style="padding-top: 28px;padding-left: 16px;">
+                <button class="slds-btn slds-btn-primary slds-btn-sm waves-effect bc-green waves-light mleft-0 btn-trip"
+                    onclick={archiveReimbursement}>
+                    Go to archive</button>
+            </div>
+        </template>
+    </div>
+    <template lwc:if={paginatedModal}>
+        <c-user-profile-modal header={headerText}  month={monthText} show-footer={isFalse} show-btn={isTrue}
+        modal-class="slds-modal slds-modal_large slds-is-fixed slds-fade-in-open animate__animated animate__fadeInTopLeft animate__faster"
+        header-class="slds-modal__header header-preview slds-p-horizontal_large slds-p-top_xx-large slds-p-bottom_xxx-small slds-clearfix"
+        modal-content-style="slds-modal__content slds-p-left_large slds-p-right_large slds-p-bottom_medium slds-p-top_small"
+        subheader-class="slds-text-heading_medium slds-hyphenate slds-float_left"
+        style-header="slds-modal__container slds-m-top_medium" close-btn-class="close-paginated">
+            <div slot="header">
+                <template lwc:if={modalLength}>
+                    <div class="slds-float_right slds-p-right_small">
+                        <div  class="slds-input-has-icon slds-input-has-icon_right search-holder">
+                            <img class="search-icon" src={searchIcon} />
+                            <template lwc:if={isSearchEnable}>
+                            </template>
+                            <template lwc:else>
+                                <div class="close-btn" onclick={handleClearInput}>
+                                    <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4.815 14.46 14.458 4.818m-9.643 0.011 9.643 9.642" stroke="#929497" stroke-width="2" stroke-linecap="round"/></svg>
+                                </div>
+                            </template>
+                            <input  class="slds-input filter-input" type="text" placeholder="Search" value={_value}  onkeyup={handleChange}/>
+                        </div>
+                    </div>
+                </template>
+            </div>
+            <div>
+                <template lwc:if={lastModelList}>
+                    <c-user-data-table main-class="slds-table--header-fixed_container modal-height" is-default-sort={paginatedModal} scrollable={isScrollable} is-paginate={paginatedModal}  model-data={lastModelList} search-key={_value}
+                    columns={modalListColumn} options={modalKeyFields} is-sortable={isSortable}  colname={colname} coltype={coltype} sortorder={sortorder} is-all-download={download} onview={downloadUserTrips} is-variable={variable}></c-user-data-table>
+                </template>
+            </div>
+        </c-user-profile-modal>
+    </template>
+    <template lwc:else>
+        <c-user-profile-modal header={headerText}  month={monthText} show-footer={isFalse} show-btn={isTrue}
+        modal-class={modalStyle}
+        header-class=""
+        modal-content-style="slds-modal__content slds-p-left_large slds-p-right_large slds-p-bottom_x-large slds-p-top_large slds-modal__content_headless modal_header"
+        subheader-class=""
+        style-header="slds-modal__container slds-m-top_medium" close-btn-class="close-aligned">
+            <div>
+                <template lwc:if={lastModelList}>
+                    <c-user-data-table main-class="modal-height" scrollable={isScrollable} is-sortable={isSortable} is-paginate={paginatedModal} model-data={lastModelList}
+                    columns={modalListColumn} options={modalKeyFields}  colname={colname} coltype={coltype} sortorder={sortorder} onrecord={downloadAllRecord} footer-list={reimbursementYtd} is-ytd-biweek={biweekYtd} is-ytd={ytd}></c-user-data-table>
+                </template>
+            </div>
+        </c-user-profile-modal>
+    </template>
+    <c-export-excel></c-export-excel>
+</template>
